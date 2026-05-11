@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+report.html
+*.pyc
+.env
+playwright-report/
+.claude/

@@ -1,0 +1,38 @@
+=== TC-34 — Evidencia del bug ===
+
+Pregunta: ¿el usuario ve los blog posts de 'Latest insights'?
+
+{
+  "section_latest_posts": {
+    "tag": "DIV",
+    "className": "section_latest_posts overflow-hidden hide",
+    "display": "none",
+    "visibility": "visible",
+    "opacity": "1",
+    "width_px": 0,
+    "height_px": 0,
+    "in_dom": true
+  },
+  "first_card": {
+    "tag": "A",
+    "className": "latest_posts-card w-inline-block",
+    "display": "inline-block",
+    "visibility": "visible",
+    "opacity": "1",
+    "width_px": 0,
+    "height_px": 0,
+    "in_dom": true
+  },
+  "cards_count": 3,
+  "cards_hrefs": [
+    "/resources/the-5-strategic-ai-tensions-redefining-enterprise-leadership-in-2026",
+    "/resources/onboarding-is-where-trust-is-won-or-lost",
+    "/resources/moving-beyond-ai-agent-washing"
+  ]
+}
+
+Lectura:
+  - cards_count > 0  → los artículos SÍ existen en el HTML
+  - section_latest_posts.display == 'none' → el CSS oculta toda la sección
+  - first_card.width_px / height_px = 0 → ni siquiera ocupan espacio en la página
+  - Conclusión: contenido publicado en el CMS pero invisible para usuarios.
