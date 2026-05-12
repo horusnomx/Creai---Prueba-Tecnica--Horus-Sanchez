@@ -42,37 +42,37 @@ def _assert_subpage_h1(page: Page, path: str, expected_h1_fragment: str) -> None
     expect(h1).to_contain_text(expected_h1_fragment)
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc20_ai_systems_framework_h1(page: Page) -> None:
     """TC-20: /services/ai-systems-framework tiene el H1 esperado."""
     _assert_subpage_h1(page, *SUBPAGES[0])
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc21_custom_ai_solutions_factory_h1(page: Page) -> None:
     """TC-21: /services/custom-ai-solutions-factory tiene el H1 esperado."""
     _assert_subpage_h1(page, *SUBPAGES[1])
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc22_talent_as_a_service_h1(page: Page) -> None:
     """TC-22: /services/talent-as-a-service tiene el H1 esperado."""
     _assert_subpage_h1(page, *SUBPAGES[2])
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc23_success_stories_h1(page: Page) -> None:
     """TC-23: /success-stories tiene el H1 esperado."""
     _assert_subpage_h1(page, *SUBPAGES[3])
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc24_about_us_h1(page: Page) -> None:
     """TC-24: /about-us tiene el H1 esperado."""
     _assert_subpage_h1(page, *SUBPAGES[4])
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc25_knowledge_hub_h1(page: Page) -> None:
     """TC-25: /knowledge-hub tiene el H1 esperado."""
     _assert_subpage_h1(page, *SUBPAGES[5])

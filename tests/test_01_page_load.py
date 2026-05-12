@@ -36,7 +36,7 @@ def test_tc01_homepage_returns_status_200(playwright: Playwright) -> None:
         api_context.dispose()
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc02_no_console_errors_on_initial_load(
     page: Page, console_errors: List[str]
 ) -> None:
@@ -51,7 +51,7 @@ def test_tc02_no_console_errors_on_initial_load(
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc03_http_redirects_to_https(page: Page) -> None:
     """TC-03: http://creai.mx redirige a https://www.creai.mx."""
     page.goto("http://creai.mx")

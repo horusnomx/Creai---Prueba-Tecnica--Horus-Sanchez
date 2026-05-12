@@ -31,7 +31,7 @@ def home_mobile(mobile_page: Page) -> HomePage:
     return home
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 @pytest.mark.mobile
 def test_tc17_nav_links_and_cta_hidden_in_mobile(home_mobile: HomePage) -> None:
     """
@@ -51,7 +51,7 @@ def test_tc18_logo_visible_in_mobile(home_mobile: HomePage) -> None:
     expect(home_mobile.get_logo()).to_be_visible(timeout=DEFAULT_TIMEOUT_MS)
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 @pytest.mark.mobile
 def test_tc19_hamburger_opens_mobile_menu(home_mobile: HomePage) -> None:
     """

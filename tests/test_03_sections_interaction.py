@@ -37,7 +37,7 @@ def home(page: Page) -> HomePage:
     return home_page
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc11_services_dropdown_exposes_three_items(home: HomePage) -> None:
     """
     TC-11: abrir el dropdown 'Services' expone los 3 sub-items esperados y son
@@ -73,7 +73,7 @@ def test_tc12_homepage_h2_sections_are_visible(home: HomePage) -> None:
         expect(h2).to_be_visible(timeout=DEFAULT_TIMEOUT_MS)
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc13_client_logos_strip_is_visible(home: HomePage) -> None:
     """
     TC-13: el strip/carousel de logos de clientes está visible y al menos un
@@ -110,7 +110,7 @@ def test_tc14_success_story_cards_are_rendered(home: HomePage) -> None:
     assert cards.count() >= 1, "Se esperaba al menos 1 success story card"
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc15_clicking_faq_item_expands_it(home: HomePage) -> None:
     """
     TC-15: hacer click en la primera pregunta del FAQ expande su respuesta.
@@ -130,7 +130,7 @@ def test_tc15_clicking_faq_item_expands_it(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc16_footer_cta_points_to_contact(home: HomePage) -> None:
     """TC-16: el CTA 'Contact us' del banner inferior apunta a /contact."""
     cta = home.get_footer_cta().first

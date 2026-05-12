@@ -138,6 +138,14 @@ The generated [`report.html`](report.html) includes:
 - Search and outcome filters to inspect only failed / passed / skipped tests.
 - Because of `--self-contained-html`, every asset (CSS, JS) is inlined — the file works offline and can be emailed as-is.
 
+**Evidence on failure** — a `pytest_runtest_makereport` hook in `conftest.py` enriches each failed row with three artifacts, embedded inline in the report (no external files):
+
+1. **Full-page screenshot** of the browser at the moment of the failure (base64 PNG).
+2. **Page context** — the URL the browser was on and the viewport dimensions.
+3. **Console error log** — every `console.error` captured during the test, when the `console_errors` fixture was active.
+
+A typical failed run inflates the report from ~65 KB to ~4 MB (depending on the number of failures and page size), but the report stays in a single portable file.
+
 When running locally on Windows, the test session also prints a `file://` link at the end so the report can be opened directly from the terminal.
 
 ## Bug reports

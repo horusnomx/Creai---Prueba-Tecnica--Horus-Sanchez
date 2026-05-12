@@ -31,7 +31,7 @@ ES_ABOUT_PATH: str = "/es-mx/about-us"
 ES_ABOUT_H1: str = "Tus líderes de confianza en soluciones impulsadas por IA"
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc26_language_switcher_redirects_to_spanish(page: Page) -> None:
     """TC-26: el switcher de idioma redirige de la versión EN a /es-mx."""
     home = HomePage(page)
@@ -44,7 +44,7 @@ def test_tc26_language_switcher_redirects_to_spanish(page: Page) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc27_spanish_nav_menu_is_translated(page: Page) -> None:
     """TC-27: en /es-mx, los links del nav muestran las etiquetas en español."""
     page.goto("/es-mx")
@@ -54,7 +54,7 @@ def test_tc27_spanish_nav_menu_is_translated(page: Page) -> None:
         expect(link).to_be_visible(timeout=DEFAULT_TIMEOUT_MS)
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc28_spanish_homepage_h1(page: Page) -> None:
     """TC-28: la home en español tiene el H1 traducido esperado."""
     page.goto("/es-mx")
@@ -63,7 +63,7 @@ def test_tc28_spanish_homepage_h1(page: Page) -> None:
     expect(h1).to_have_text(ES_HOME_H1)
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc29_spanish_subpage_about_us_h1(page: Page) -> None:
     """TC-29: la sub-página /es-mx/about-us tiene el H1 traducido."""
     page.goto(ES_ABOUT_PATH)

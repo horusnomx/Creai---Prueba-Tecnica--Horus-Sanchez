@@ -40,7 +40,7 @@ def home(page: Page) -> HomePage:
 # ---------- Nav clicks individuales (TC-30..33) ----------
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc30_success_stories_link_navigates(home: HomePage) -> None:
     """TC-30: click en 'Success stories' del nav navega a /success-stories."""
     home.click_nav_link("/success-stories")
@@ -49,7 +49,7 @@ def test_tc30_success_stories_link_navigates(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc31_about_us_link_navigates(home: HomePage) -> None:
     """TC-31: click en 'About us' del nav navega a /about-us."""
     home.click_nav_link("/about-us")
@@ -58,7 +58,7 @@ def test_tc31_about_us_link_navigates(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.functional
 def test_tc32_knowledge_hub_link_navigates(home: HomePage) -> None:
     """TC-32: click en 'Knowledge hub' del nav navega a /knowledge-hub."""
     home.click_nav_link("/knowledge-hub")
@@ -67,7 +67,7 @@ def test_tc32_knowledge_hub_link_navigates(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc33_logo_click_returns_to_home(home: HomePage) -> None:
     """TC-33: desde una sub-página, click en el logo regresa a la homepage."""
     home.click_nav_link("/about-us")
@@ -81,7 +81,7 @@ def test_tc33_logo_click_returns_to_home(home: HomePage) -> None:
 # ---------- Sección 'Latest insights' (TC-34) ----------
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc34_latest_insights_has_blog_posts_in_dom(home: HomePage) -> None:
     """
     TC-34: la sección 'Latest insights' muestra al menos un blog post visible.
@@ -101,7 +101,7 @@ def test_tc34_latest_insights_has_blog_posts_in_dom(home: HomePage) -> None:
 # ---------- Responsive tablet (TC-35) ----------
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 @pytest.mark.mobile
 def test_tc35_no_horizontal_overflow_at_tablet(tablet_page: Page) -> None:
     """TC-35: en viewport tablet (768x1024) la home no introduce overflow horizontal."""
@@ -124,7 +124,7 @@ def test_tc35_no_horizontal_overflow_at_tablet(tablet_page: Page) -> None:
 # ---------- Metadata / SEO (TC-36..41) ----------
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc36_title_tag_is_present_and_meaningful(home: HomePage) -> None:
     """TC-36: la home tiene <title> con contenido razonable (>=10 chars)."""
     title = home.page.title().strip()
@@ -134,7 +134,7 @@ def test_tc36_title_tag_is_present_and_meaningful(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc37_meta_description_is_present(home: HomePage) -> None:
     """TC-37: existe meta description con contenido (>=30 chars)."""
     description = home.page.locator("meta[name='description']").first
@@ -145,7 +145,7 @@ def test_tc37_meta_description_is_present(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc38_twitter_image_is_absolute_url(home: HomePage) -> None:
     """
     TC-38: existe meta property='twitter:image' con URL absoluta.
@@ -161,7 +161,7 @@ def test_tc38_twitter_image_is_absolute_url(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc39_open_graph_image_is_absolute_url(home: HomePage) -> None:
     """TC-39: existe meta property='og:image' con URL absoluta."""
     og_image = home.page.locator("meta[property='og:image']").first
@@ -172,7 +172,7 @@ def test_tc39_open_graph_image_is_absolute_url(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc40_html_lang_attribute_is_set(home: HomePage) -> None:
     """TC-40: el <html> declara atributo `lang` (accesibilidad + SEO)."""
     lang = home.page.evaluate("() => document.documentElement.lang") or ""
@@ -182,7 +182,7 @@ def test_tc40_html_lang_attribute_is_set(home: HomePage) -> None:
     )
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc41_canonical_link_points_to_creai_domain(home: HomePage) -> None:
     """TC-41: existe <link rel='canonical'> apuntando al dominio canónico."""
     canonical = home.page.locator("link[rel='canonical']").first
@@ -196,7 +196,7 @@ def test_tc41_canonical_link_points_to_creai_domain(home: HomePage) -> None:
 # ---------- Contrato HTTP del CTA (TC-42) ----------
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc42_get_started_button_returns_200_ok(home: HomePage) -> None:
     """
     TC-42: el click en 'Get started' del header debe responder HTTP 200 en

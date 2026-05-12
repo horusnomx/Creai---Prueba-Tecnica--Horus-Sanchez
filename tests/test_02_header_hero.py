@@ -36,7 +36,7 @@ def test_tc05_logo_is_visible(home: HomePage) -> None:
     expect(home.get_logo()).to_be_visible(timeout=DEFAULT_TIMEOUT_MS)
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc06_nav_contains_four_main_entries(home: HomePage) -> None:
     """TC-06: el nav muestra el dropdown 'Services' y los 3 links principales."""
     expect(home.get_services_dropdown()).to_be_visible(timeout=DEFAULT_TIMEOUT_MS)
@@ -67,7 +67,7 @@ def test_tc09_hero_h1_has_expected_text(home: HomePage) -> None:
     expect(h1).to_have_text(EXPECTED_H1)
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc10_language_switcher_is_visible(home: HomePage) -> None:
     """TC-10: el language switcher (en / es-MX) está visible."""
     expect(home.get_language_switcher().first).to_be_visible(
