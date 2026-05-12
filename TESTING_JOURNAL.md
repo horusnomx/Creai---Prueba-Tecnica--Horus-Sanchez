@@ -17,7 +17,30 @@ Last run: 2026-05-11
 | Architecture decision | Lightweight Page Object Model — a single `HomePage` class centralises every selector. Tests never inline locators |
 | Evaluation criteria targeted | Technical implementation (30%), requirements coverage (25%), readability (20%), tool usage (15%), deliverables (10%) |
 
-## 2. Site reconnaissance
+## 2. AI-assisted workflow and tooling
+
+I built this suite inside **Google Antigravity**, an agent-first IDE powered by Gemini 3, with the **Claude Code** extension installed alongside it. The decision to keep both agents in one workspace was deliberate: each one has a clear comparative advantage, and routing each task to the right agent collapsed the full implementation cycle into a single work session.
+
+**Division of responsibilities between agents:**
+
+- **Antigravity Agent (Gemini 3)** owned the *visual reconnaissance* of the live site through its browser-in-the-loop. It inspected the real DOM of `https://www.creai.mx` before a single line of test code was written and produced `selector_map.md` from that inspection. This eliminated the entire class of bugs that come from inventing selectors against assumed markup — every selector in the map was anchored to an element the agent had actually seen.
+
+- **Claude Code (Anthropic)** owned the *test code implementation*. It read `selector_map.md` and `CLAUDE.md` at the start of each session to keep architectural consistency between iterations, ran `pytest` in the integrated terminal, and corrected errors module by module until each one passed. Because `CLAUDE.md` carried the conventions (POM layout, naming, marker taxonomy, locator priority), I did not need to repeat them on every prompt.
+
+**Why this combination paid off:**
+
+- The browser-in-the-loop on Antigravity guaranteed real selectors from the first attempt; I never had to round-trip "open DevTools → copy selector → paste into test → run → fix" by hand.
+- Claude Code's persistent context (the `CLAUDE.md` file) kept the test suite consistent across the seven modules without me having to restate the POM rules, the marker conventions, or the file structure on each task.
+- Both agents shared the same workspace, so the artefacts each one produced — selector map, source files, run logs — were immediately visible to the other.
+
+**Persistent context configured in Antigravity** (Knowledge Items — the equivalent of `CLAUDE.md` for the Gemini-side agent):
+
+- Code conventions (English test names, Spanish docstrings, no inline locators, `expect()` over `time.sleep()`).
+- Stack (Python 3.11+, pytest, pytest-playwright, Chromium headless).
+- `BASE_URL` (`https://www.creai.mx`).
+- Challenge evaluation criteria and their weights, so the agent could prioritise effort against the rubric.
+
+## 3. Site reconnaissance
 
 - **URL inspected**: `https://www.creai.mx` (English) and `https://www.creai.mx/es-mx` (Spanish locale).
 - **Sections identified** on the live homepage:
@@ -40,7 +63,7 @@ Last run: 2026-05-11
   - Several sub-page H1s differ from the snapshot in `selector_map.md` (e.g. `/knowledge-hub` shows "Knowledge hub", not "Resources").
   - Clicking "Get started" fires two third-party tracking endpoints (LinkedIn Insight + GA4) that return **HTTP 204 No Content**.
 
-## 3. Test cases defined
+## 4. Test cases defined
 
 | Metric | Value |
 | --- | --- |
@@ -61,7 +84,7 @@ Modules:
 6. Internationalization, ES-MX (TC-26..29)
 7. Extras + HTTP contract (TC-30..42)
 
-## 4. Implementation log
+## 5. Implementation log
 
 | # | Step | Outcome |
 | --- | --- | --- |
@@ -79,7 +102,7 @@ Modules:
 
 Total cycle time on the final suite: **57 s** wall-clock (Chromium headless, single thread).
 
-## 5. Final execution results
+## 6. Final execution results
 
 Command executed:
 
@@ -142,7 +165,7 @@ AssertionError: 'Get started' generó 2 response(s) con status 204 No Content;
 
 Both failures are intentional bug-tracking flags. Every other test is green.
 
-## 6. Issues encountered and decisions taken
+## 7. Issues encountered and decisions taken
 
 | ID | Issue | Resolution |
 | --- | --- | --- |
@@ -161,7 +184,7 @@ Both failures are intentional bug-tracking flags. Every other test is green.
 | TC-42 | First implementation passed because the response listener captured a 200 page-load response, not the 204 tracking ping. The intent was a failing test | Re-implemented to capture **every** response on the context, exclude static assets and `OPTIONS` pre-flights, then assert no response in that filtered set has status 204. The test now fails deterministically on the LinkedIn and GA4 endpoints |
 | IDE-side false positives | Pylance picked up a different Python interpreter without `pytest`/`playwright` installed and flagged the imports | Tests still run on the venv configured for the project (`C:\Users\horus\PyCharmMiscProject\.venv`). No action taken — the warning does not affect execution |
 
-## 7. Delivery instructions
+## 8. Delivery instructions
 
 - **Run from scratch** (clean machine):
 
